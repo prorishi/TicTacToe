@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <script>
+            const socket = io();
+
+            function inputName() {
+                swal({
+                    title: "Enter a username",
+                    content: "input",
+                    closeOnClickOutside: false,
+                }).then((r) => {
+                    if (r) {
+                        fetch("/", {
+                            method: "post",
+                            body: "",
+                            headers: {
+                                "Content-type": "text/plain; charset=UTF-8",
+                            },
+                        }).then((g) => {
+                            console.log(g.json());
+                        });
+                    } else {
+                        swal({ title: "username is required", icon: "warning" }).then(inputName);
+                    }
+                    console.log(r);
+                });
+            }
+            inputName();
+        </script>
+    </body>
+</html>
